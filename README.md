@@ -1,21 +1,37 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ehmicky/design/main/modern-errors/modern-errors_dark.svg"/>
+  <img alt="modern-errors logo" src="https://raw.githubusercontent.com/ehmicky/design/main/modern-errors/modern-errors.svg" width="600"/>
+</picture>
+
 [![Node](https://img.shields.io/badge/-Node.js-808080?logo=node.js&colorA=404040&logoColor=66cc33)](https://www.npmjs.com/package/modern-errors-switch)
 [![Browsers](https://img.shields.io/badge/-Browsers-808080?logo=firefox&colorA=404040)](https://unpkg.com/modern-errors-switch?module)
 [![TypeScript](https://img.shields.io/badge/-Typed-808080?logo=typescript&colorA=404040&logoColor=0096ff)](/types/main.d.ts)
 [![Codecov](https://img.shields.io/badge/-Tested%20100%25-808080?logo=codecov&colorA=404040)](https://codecov.io/gh/ehmicky/modern-errors-switch)
-[![Minified size](https://img.shields.io/bundlephobia/minzip/modern-errors-switch?label&colorA=404040&colorB=808080&logo=webpack)](https://bundlephobia.com/package/modern-errors-switch)
+[![Minified size](https://img.shields.io/bundlephobia/minzip/modern-errors-http?label&colorA=404040&colorB=808080&logo=webpack)](https://bundlephobia.com/package/modern-errors-switch)
 [![Twitter](https://img.shields.io/badge/-Twitter-808080.svg?logo=twitter&colorA=404040)](https://twitter.com/intent/follow?screen_name=ehmicky)
 [![Medium](https://img.shields.io/badge/-Medium-808080.svg?logo=medium&colorA=404040)](https://medium.com/@ehmicky)
 
-`modern-errors` plugin to execute class-specific logic.
-
-Work in progress!
-
-# Features
+[`modern-errors`](https://github.com/ehmicky/modern-errors)
+[plugin](https://github.com/ehmicky/modern-errors#-plugins) to execute
+class-specific logic.
 
 # Example
 
+[Adding the plugin](https://github.com/ehmicky/modern-errors#adding-plugins) to
+[`modern-errors`](https://github.com/ehmicky/modern-errors).
+
 ```js
+import ModernError from 'modern-errors'
 import modernErrorsSwitch from 'modern-errors-switch'
+
+export const BaseError = ModernError.subclass('BaseError', {
+  plugins: [modernErrorsSwitch],
+})
+// ...
+```
+
+```js
+
 ```
 
 # Install
@@ -30,30 +46,52 @@ It is an ES module and must be loaded using
 [an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
 not `require()`.
 
-<!--
-This package works in Node.js >=14.18.0. It is an ES module and must be loaded
-using
-[an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
-not `require()`.
--->
-
 # API
 
-## modernErrorsSwitch(value, options?)
+## modernErrorsSwitch
 
-`value` `any`\
-`options` [`Options?`](#options)\
-_Return value_: [`object`](#return-value)
+_Type_: `Plugin`
 
-### Options
+Plugin object to pass to the
+[`plugins` option](https://github.com/ehmicky/modern-errors#adding-plugins) of
+`ErrorClass.subclass()`.
 
-Object with the following properties.
+## BaseError.switch(error)
 
-### Return value
+`error`: `unknown`\
+_Return value_: [`Switch`](#switchcasecondition-effect)
 
-Object with the following properties.
+## Switch.case(condition, ...effects)
+
+`condition`: `ErrorClass | "name" | (error) => boolean`\
+`effect`: `ErrorClass | "message" | Options | (error) => error`\
+_Return value_: [`Switch`](#switchcasecondition-effect)
+
+## Switch.default(...effects)
+
+`effect`: `ErrorClass | "message" | Options | (error) => error`\
+_Return value_: `Error`
 
 # Related projects
+
+- [`log-process-errors`](https://github.com/ehmicky/log-process-errors): Show
+  some ❤ to Node.js process errors
+- [`modern-errors`](https://github.com/ehmicky/modern-errors): Handle errors
+  like it's 2022 🔮
+- [`modern-errors-cli`](https://github.com/ehmicky/modern-errors-cli): Handle
+  errors in CLI modules
+- [`modern-errors-process`](https://github.com/ehmicky/modern-errors-process):
+  Handle process errors
+- [`modern-errors-bugs`](https://github.com/ehmicky/modern-errors-bugs): Print
+  where to report bugs
+- [`modern-errors-serialize`](https://github.com/ehmicky/modern-errors-serialize):
+  Serialize/parse errors
+- [`modern-errors-clean`](https://github.com/ehmicky/modern-errors-clean): Clean
+  stack traces
+- [`modern-errors-http`](https://github.com/ehmicky/modern-errors-http): Create
+  HTTP error responses
+- [`modern-errors-winston`](https://github.com/ehmicky/modern-errors-winston):
+  Log errors with Winston
 
 # Support
 
