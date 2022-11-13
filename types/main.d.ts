@@ -1,4 +1,26 @@
-import type { Info, ErrorInstance } from 'modern-errors'
+import type { Info, ErrorInstance, ErrorClass } from 'modern-errors'
+
+/**
+ *
+ */
+export type Condition = string | typeof Error | ((error: unknown) => boolean)
+
+/**
+ *
+ */
+export type Effect =
+  | string
+  | object
+  | ErrorClass
+  | ((error: unknown) => unknown)
+
+/**
+ *
+ */
+export interface Switch {
+  case(condition: Condition, ...effects: Effect[]): Switch
+  default(...effect: Effect[]): ErrorInstance
+}
 
 /**
  * `modern-errors-switch` plugin
@@ -12,7 +34,7 @@ declare const plugin: {
      * ```js
      * ```
      */
-    switch: (info: Info['staticMethods'], error: unknown) => ErrorInstance
+    switch: (info: Info['staticMethods'], error: unknown) => Switch
   }
 }
 export default plugin
