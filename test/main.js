@@ -57,17 +57,16 @@ test('Can wrap the error message', (t) => {
 })
 
 test('Keeps the options by default', (t) => {
-  const innerError = new BaseError(message)
-  const baseError = new BaseError(message, { errors: [innerError] })
-  t.is(BaseError.switch(baseError).default().errors[0], innerError)
+  const baseError = new BaseError(message, { errors: [message] })
+  t.is(BaseError.switch(baseError).default().errors.length, 1)
 })
 
 test('Can wrap the options', (t) => {
-  const innerError = new BaseError(message)
-  const baseError = new BaseError(message, { errors: [innerError] })
   t.is(
-    BaseError.switch(baseError).default({ errors: [innerError] }).errors[1],
-    innerError,
+    BaseError.switch(new BaseError(message, { errors: [message] })).default({
+      errors: [message],
+    }).errors.length,
+    2,
   )
 })
 
