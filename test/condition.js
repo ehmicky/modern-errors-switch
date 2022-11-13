@@ -25,7 +25,7 @@ test('Can match by error name', (t) => {
   )
 })
 
-test('Can only match errors by error name', (t) => {
+test('Can only match error instances by name', (t) => {
   t.false(
     BaseError.switch({ name: 'OneError' })
       .case(TwoError.name, suffix)

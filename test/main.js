@@ -10,9 +10,19 @@ import {
   returnTrue,
 } from './helpers/main.js'
 
-test('Can use default without any effects', (t) => {
+test('Can use case() without any effects', (t) => {
+  const baseError = new BaseError(message)
+  t.is(BaseError.switch(baseError).case(returnTrue).default(), baseError)
+})
+
+test('Can use default() without any effects', (t) => {
   const baseError = new BaseError(message)
   t.is(BaseError.switch(baseError).default(), baseError)
+})
+
+test('Cannot use case() without any condition', (t) => {
+  const baseError = new BaseError(message)
+  t.throws(BaseError.switch(baseError).case)
 })
 
 test('Can pass multiple effects to case()', (t) => {
