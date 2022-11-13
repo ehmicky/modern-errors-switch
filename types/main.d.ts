@@ -1,5 +1,5 @@
 /**
- * `template-name` options
+ * `modern-errors-switch` options
  */
 export interface Options {}
 
@@ -9,4 +9,7 @@ export interface Options {}
  * ```js
  * ```
  */
-export default function templateName(value: any, options?: Options): object
+export default function modernErrorsSwitch(
+  value: any,
+  options?: Options,
+): object

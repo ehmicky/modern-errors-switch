@@ -1,7 +1,7 @@
-import templateName, { Options } from 'template-name'
+import modernErrorsSwitch, { Options } from 'modern-errors-switch'
 import { expectType, expectAssignable } from 'tsd'
 
-expectType<object>(templateName(true))
+expectType<object>(modernErrorsSwitch(true))
 
-templateName(true, {})
+modernErrorsSwitch(true, {})
 expectAssignable<Options>({})
