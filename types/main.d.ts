@@ -1,15 +1,18 @@
-/**
- * `modern-errors-switch` options
- */
-export interface Options {}
+import type { Info, ErrorInstance } from 'modern-errors'
 
 /**
- *
- * @example
- * ```js
- * ```
+ * `modern-errors-switch` plugin
  */
-export default function modernErrorsSwitch(
-  value: any,
-  options?: Options,
-): object
+declare const plugin: {
+  name: 'switch'
+  staticMethods: {
+    /**
+     *
+     * @example
+     * ```js
+     * ```
+     */
+    switch: (info: Info['staticMethods'], error: unknown) => ErrorInstance
+  }
+}
+export default plugin

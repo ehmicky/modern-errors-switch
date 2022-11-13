@@ -1,7 +1,10 @@
-import modernErrorsSwitch, { Options } from 'modern-errors-switch'
 import { expectType, expectAssignable } from 'tsd'
 
-expectType<object>(modernErrorsSwitch(true))
+import ModernError, { ErrorInstance } from 'modern-errors'
+import modernErrorsSwitch from 'modern-errors-switch'
 
-modernErrorsSwitch(true, {})
-expectAssignable<Options>({})
+const BaseError = ModernError.subclass('BaseError', {
+  plugins: [modernErrorsSwitch],
+})
+
+expectType<ErrorInstance>(BaseError.switch(''))
