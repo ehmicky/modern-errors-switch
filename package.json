@@ -50,7 +50,10 @@
     "lib": "src",
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "is-error-instance": "^1.3.0",
+    "is-plain-obj": "^4.1.0"
+  },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.102"
   },
