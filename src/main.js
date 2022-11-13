@@ -42,7 +42,7 @@ const matchesCondition = function (value, condition) {
   }
 
   if (isProto.call(Error, condition)) {
-    return value instanceof Error
+    return value instanceof condition
   }
 
   return Boolean(condition(value))
@@ -105,9 +105,9 @@ const getFuncEffectType = function (effect, ErrorClass) {
     return 'mapper'
   }
 
-  if (!isProto.call(ErrorClass, effect)) {
+  if (ErrorClass !== effect && !isProto.call(ErrorClass, effect)) {
     throw new TypeError(
-      `The error class must be ${ErrorClass.name} or one of its subclass, not: ${effect.name}`,
+      `The error class must be "${ErrorClass.name}" or one of its subclass, not "${effect.name}".`,
     )
   }
 
