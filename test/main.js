@@ -1,6 +1,6 @@
 import test from 'ava'
-import templateName from 'template-name'
+import modernErrorsSwitch from 'modern-errors-switch'
 
 test('Dummy test', (t) => {
-  t.true(templateName(true))
+  t.true(modernErrorsSwitch(true))
 })

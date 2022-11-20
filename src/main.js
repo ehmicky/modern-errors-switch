@@ -1,3 +1,3 @@
-export default function templateName(value) {
+export default function modernErrorsSwitch(value) {
   return value
 }

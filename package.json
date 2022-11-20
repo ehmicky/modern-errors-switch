@@ -1,5 +1,5 @@
 {
-  "name": "template-name",
+  "name": "modern-errors-switch",
   "version": "0.0.1",
   "type": "module",
   "exports": {
@@ -16,13 +16,13 @@
   "scripts": {
     "test": "gulp test"
   },
-  "description": "template-description",
+  "description": "`modern-errors` plugin to execute class-specific logic",
   "keywords": [],
   "license": "MIT",
-  "homepage": "https://www.github.com/ehmicky/template-name",
-  "repository": "ehmicky/template-name",
+  "homepage": "https://www.github.com/ehmicky/modern-errors-switch",
+  "repository": "ehmicky/modern-errors-switch",
   "bugs": {
-    "url": "https://github.com/ehmicky/template-name/issues"
+    "url": "https://github.com/ehmicky/modern-errors-switch/issues"
   },
   "author": "ehmicky <ehmicky@gmail.com> (https://github.com/ehmicky)",
   "directories": {
