@@ -15,8 +15,6 @@
 [plugin](https://github.com/ehmicky/modern-errors#-plugins) to execute
 class-specific logic.
 
-Work in progress!
-
 # Example
 
 [Adding the plugin](https://github.com/ehmicky/modern-errors#adding-plugins) to
@@ -32,8 +30,17 @@ export const BaseError = ModernError.subclass('BaseError', {
 // ...
 ```
 
-```js
+Wrap error according to its class.
 
+```js
+try {
+  // ...
+} catch (error) {
+  throw BaseError.switch(error)
+    .case(InputError, 'The input was invalid.')
+    .case(DatabaseError, 'Bug at the database layer.')
+    .default('Unknown error.')
+}
 ```
 
 # Install
@@ -63,16 +70,150 @@ Plugin object to pass to the
 `error`: `unknown`\
 _Return value_: [`Switch`](#switchcasecondition-effect)
 
+Apply logic according to `error`'s class. This must be chained with
+[`.case()`](#switchcasecondition-effects) and end with
+[`.default()`](#switchdefaulteffects).
+
+Although `error` should be an `Error` instance most of the times, it can be of
+any type. However, the final value returned by
+[`.default()`](#switchdefaulteffects) is always an instance of `BaseError` or a
+subclass of it.
+
 ## Switch.case(condition, ...effects)
 
 `condition`: `ErrorClass | "name" | (error) => boolean`\
 `effect`: `ErrorClass | "message" | Options | (error) => error`\
 _Return value_: [`Switch`](#switchcasecondition-effect)
 
+If `error` matches the `condition`, apply the `effects`. 0, 1 or multiple
+effects can be applied.
+
+The `condition` can be:
+
+- An error class, matched with
+  [`instanceof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
+- An error
+  [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name)
+  string
+- A filtering function taking the `error` as argument
+
+Each `effect` can be:
+
+- The
+  [new error class](https://github.com/ehmicky/modern-errors#wrap-error-class).
+  It must be a
+  [subclass](https://github.com/ehmicky/modern-errors#create-error-classes) of
+  `BaseError`. It is ignored if `error`'s class is
+  [already a subclass](https://github.com/ehmicky/modern-errors#wrap-error-class)
+  of it.
+- A
+  [message](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/message)
+  string to append or (if it ends with `:` or `:\n`) prepend
+- An
+  [options object](https://github.com/ehmicky/modern-errors#wrap-error-options)
+  to add
+- A mapping function taking the `error` as argument and returning it.
+
 ## Switch.default(...effects)
 
-`effect`: `ErrorClass | "message" | Options | (error) => error`\
+`effect`: `"message" | ErrorClass | Options | (error) => error`\
 _Return value_: `Error`
+
+If none of the [`.case()`](#switchcasecondition-effects) statements matched,
+apply those default `effects`.
+
+# Usage
+
+## Wrap error message
+
+```js
+BaseError.switch(error)
+  // If `InputError`, then appends the following message
+  .case(InputError, 'The input was invalid.')
+  // If the message ends with `:` or `:\n`, it is prepended instead
+  .case(DatabaseError, 'Bug at the database layer:')
+  // Empty error messages are ignored
+  .default('')
+```
+
+## Convert error classes
+
+```js
+// Convert `TypeError` class to `InputError`, etc. or default to `UnknownError`
+BaseError.switch(error)
+  .case(TypeError, InputError)
+  .case(URIError, ClientError)
+  .default(UnknownError)
+```
+
+## Wrap error options
+
+```js
+BaseError.switch(error)
+  // If `DatabaseError`, add options for other plugins like `modern-errors-bugs`
+  .case(DatabaseError, { bugs: 'https://github.com/my-name/my-project/issues' })
+  .default()
+```
+
+## Map error
+
+<!-- eslint-disable promise/prefer-await-to-callbacks -->
+
+```js
+BaseError.switch(error)
+  // If `DatabaseError`, adds `error.databaseUrl`
+  .case(DatabaseError, (error) => {
+    error.databaseUrl = databaseUrl
+    return error
+  })
+  .default()
+```
+
+## Multiple effects
+
+```js
+BaseError.switch(error)
+  // 0 effects
+  .case(TypeError)
+  // Multiple effects
+  .case(URIError, ClientError, 'Invalid URI.', {
+    bugs: 'https://github.com/my-name/my-project/issues',
+  })
+  .default(UnknownError)
+```
+
+## Custom condition
+
+```js
+BaseError.switch(error)
+  // If `error.type` is `database`, append the following message
+  .case((error) => error.type === 'database', 'Bug at the database layer.')
+  .default()
+```
+
+## Unknown errors
+
+<!-- eslint-disable unicorn/no-null, no-throw-literal,
+     promise/prefer-await-to-callbacks, no-shadow -->
+
+```js
+// Any `error` can be wrapped, even if it is not an `Error` instance
+try {
+  throw null
+} catch (error) {
+  // Therefore the filtering and mapping functions' argument might be anything
+  throw BaseError.switch(error)
+    .case(
+      (error) => error instanceof Error && error.type === 'database',
+      'Bug at the database layer.',
+    )
+    .default((error) => {
+      if (error instanceof Error) {
+        error.type = 'other'
+      }
+    })
+}
+```
 
 # Related projects
 
