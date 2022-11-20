@@ -22,7 +22,7 @@ export type Condition =
  *    It must be a
  *    [subclass](https://github.com/ehmicky/modern-errors#create-error-classes)
  *    of `BaseError`. It is ignored if `error`'s class is
- *    [already a subclass](https://github.com/ehmicky/modern-errors#wrap-error-class)
+ *    [already a subclass](https://github.com/ehmicky/modern-errors#wrap-error-class).
  *  - A
  *    [message](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/message)
  *    string to append or (if it ends with `:` or `:\n`) prepend
