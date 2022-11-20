@@ -15,6 +15,8 @@
 [plugin](https://github.com/ehmicky/modern-errors#-plugins) to execute
 class-specific logic.
 
+Work in progress!
+
 # Example
 
 [Adding the plugin](https://github.com/ehmicky/modern-errors#adding-plugins) to
