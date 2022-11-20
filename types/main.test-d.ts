@@ -3,9 +3,6 @@ import { expectType, expectError } from 'tsd'
 import ModernError, { ErrorInstance } from 'modern-errors'
 import modernErrorsSwitch, { Switch } from 'modern-errors-switch'
 
-import './condition.test-d.js'
-import './effect.test-d.js'
-
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsSwitch],
 })
