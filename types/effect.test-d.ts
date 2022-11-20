@@ -28,13 +28,10 @@ expectAssignable<Effect>({ serialize: {} })
 
 switchStatement.default(BaseError)
 switchStatement.default(BaseError.subclass('BaseError'))
-expectError(switchStatement.default(Error))
 switchStatement.case('Error', BaseError)
 switchStatement.case('Error', BaseError.subclass('BaseError'))
-expectError(switchStatement.case('Error', Error))
 expectAssignable<Effect>(BaseError)
 expectAssignable<Effect>(BaseError.subclass('BaseError'))
-expectNotAssignable<Effect>(Error)
 
 switchStatement.default(() => true)
 switchStatement.default((error: unknown) => true)

@@ -1,4 +1,4 @@
-import type { Info, ErrorInstance, ErrorClass } from 'modern-errors'
+import type { Info, ErrorInstance } from 'modern-errors'
 
 /**
  * The `condition` can be:
@@ -34,7 +34,7 @@ export type Condition =
 export type Effect =
   | string
   | { [_: string]: unknown }
-  | ErrorClass
+  | (new (...args: any[]) => Error)
   | ((error: unknown) => unknown)
 
 /**
