@@ -3,14 +3,17 @@ import type { Info, ErrorInstance, ErrorClass } from 'modern-errors'
 /**
  *
  */
-export type Condition = string | typeof Error | ((error: unknown) => boolean)
+export type Condition =
+  | string
+  | (new (...args: any[]) => Error)
+  | ((error: unknown) => boolean)
 
 /**
  *
  */
 export type Effect =
   | string
-  | object
+  | { [_: string]: unknown }
   | ErrorClass
   | ((error: unknown) => unknown)
 
