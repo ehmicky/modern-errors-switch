@@ -85,8 +85,18 @@ subclass of it.
 `effect`: `ErrorClass | "message" | Options | (error) => error`\
 _Return value_: [`Switch`](#switchcasecondition-effects)
 
-If `error` matches the `condition`, apply the `effects`. 0, 1 or multiple
-effects can be applied.
+If `error` matches the [`condition`](#condition), apply the
+[`effects`](#effect). 0, 1 or multiple effects can be applied.
+
+## Switch.default(...effects)
+
+`effect`: `"message" | ErrorClass | Options | (error) => error`\
+_Return value_: `Error`
+
+If none of the [`.case()`](#switchcasecondition-effects) statements matched,
+apply those default [`effects`](#effect).
+
+## Condition
 
 The `condition` can be:
 
@@ -96,6 +106,8 @@ The `condition` can be:
   [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name)
   string
 - A filtering function taking the `error` as argument
+
+## Effect
 
 Each `effect` can be:
 
@@ -113,14 +125,6 @@ Each `effect` can be:
   [options object](https://github.com/ehmicky/modern-errors#wrap-error-options)
   to add
 - A mapping function taking the `error` as argument and returning it.
-
-## Switch.default(...effects)
-
-`effect`: `"message" | ErrorClass | Options | (error) => error`\
-_Return value_: `Error`
-
-If none of the [`.case()`](#switchcasecondition-effects) statements matched,
-apply those default `effects`.
 
 # Usage
 
