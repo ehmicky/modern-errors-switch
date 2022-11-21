@@ -68,7 +68,7 @@ Plugin object to pass to the
 ## BaseError.switch(error)
 
 `error`: `unknown`\
-_Return value_: [`Switch`](#switchcasecondition-effect)
+_Return value_: [`Switch`](#switchcasecondition-effects)
 
 Apply logic according to `error`'s class. This must be chained with
 [`.case()`](#switchcasecondition-effects) and end with
@@ -83,7 +83,7 @@ subclass of it.
 
 `condition`: `ErrorClass | "name" | (error) => boolean`\
 `effect`: `ErrorClass | "message" | Options | (error) => error`\
-_Return value_: [`Switch`](#switchcasecondition-effect)
+_Return value_: [`Switch`](#switchcasecondition-effects)
 
 If `error` matches the `condition`, apply the `effects`. 0, 1 or multiple
 effects can be applied.
