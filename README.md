@@ -15,6 +15,9 @@
 [plugin](https://github.com/ehmicky/modern-errors#-plugins) to execute
 class-specific logic.
 
+This adds [`BaseError.switch()`](#baseerrorswitcherror) to wrap an error
+according to its class.
+
 # Example
 
 [Adding the plugin](https://github.com/ehmicky/modern-errors#adding-plugins) to
