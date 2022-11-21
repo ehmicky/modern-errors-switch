@@ -91,7 +91,7 @@ effects can be applied.
 ## Switch.default(...effects)
 
 `effect`: [`Effect`](#effect)\
-_Return value_: `Error`
+_Return value_: `BaseError`
 
 If none of the [`.case()`](#switchcasecondition-effects) statements matched,
 apply those default `effects`.
@@ -105,26 +105,25 @@ The `condition` can be:
 - An error
   [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name)
   string
-- A filtering function taking the `error` as argument
+- A filtering function taking the `error` as argument and returning a boolean
 
 ## Effect
 
 Each `effect` can be:
 
-- The
+- A
   [new error class](https://github.com/ehmicky/modern-errors#wrap-error-class).
   It must be a
   [subclass](https://github.com/ehmicky/modern-errors#create-error-classes) of
   `BaseError`. It is ignored if `error`'s class is
   [already a subclass](https://github.com/ehmicky/modern-errors#wrap-error-class)
-  of it.
 - A
   [message](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/message)
   string to append or (if it ends with `:` or `:\n`) prepend
 - An
   [options object](https://github.com/ehmicky/modern-errors#wrap-error-options)
-  to add
-- A mapping function taking the `error` as argument and returning it.
+  to merge
+- A mapping function taking the `error` as argument and returning it
 
 # Usage
 
@@ -215,6 +214,8 @@ try {
       if (error instanceof Error) {
         error.type = 'other'
       }
+
+      return error
     })
 }
 ```
