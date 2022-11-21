@@ -81,20 +81,20 @@ subclass of it.
 
 ## Switch.case(condition, ...effects)
 
-`condition`: `ErrorClass | "name" | (error) => boolean`\
-`effect`: `ErrorClass | "message" | Options | (error) => error`\
+`condition`: [`Condition`](#condition)\
+`effect`: [`Effect`](#effect)\
 _Return value_: [`Switch`](#switchcasecondition-effects)
 
-If `error` matches the [`condition`](#condition), apply the
-[`effects`](#effect). 0, 1 or multiple effects can be applied.
+If `error` matches the `condition`, apply the `effects`. 0, 1 or multiple
+effects can be applied.
 
 ## Switch.default(...effects)
 
-`effect`: `"message" | ErrorClass | Options | (error) => error`\
+`effect`: [`Effect`](#effect)\
 _Return value_: `Error`
 
 If none of the [`.case()`](#switchcasecondition-effects) statements matched,
-apply those default [`effects`](#effect).
+apply those default `effects`.
 
 ## Condition
 
