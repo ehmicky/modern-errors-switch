@@ -30,7 +30,7 @@ export const BaseError = ModernError.subclass('BaseError', {
 // ...
 ```
 
-Wrap error according to its class.
+Wrapping an error's message according to its class.
 
 ```js
 try {
