@@ -56,7 +56,7 @@
     "is-plain-obj": "^4.1.0"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^2.0.17"
+    "@ehmicky/dev-tasks": "^2.0.18"
   },
   "peerDependencies": {
     "modern-errors": "^5.3.1"
