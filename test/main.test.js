@@ -8,7 +8,7 @@ import {
   suffix,
   suffixTwo,
   returnTrue,
-} from './helpers/main.js'
+} from './helpers/main.test.js'
 
 test('Can use case() without any effects', (t) => {
   const baseError = new BaseError(message)

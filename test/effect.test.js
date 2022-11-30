@@ -7,7 +7,7 @@ import {
   message,
   suffix,
   unsafeFunc,
-} from './helpers/main.js'
+} from './helpers/main.test.js'
 
 test('Keeps the error class by default', (t) => {
   const oneError = new OneError(message)

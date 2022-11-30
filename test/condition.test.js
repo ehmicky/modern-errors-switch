@@ -6,7 +6,7 @@ import {
   TwoError,
   suffix,
   unsafeFunc,
-} from './helpers/main.js'
+} from './helpers/main.test.js'
 
 test('Can match by error name', (t) => {
   const oneError = new OneError('test')
