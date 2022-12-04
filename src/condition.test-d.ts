@@ -27,15 +27,15 @@ expectNotAssignable<Condition>(Function)
 expectNotAssignable<Condition>(Array)
 
 switchStatement.case(() => true)
-switchStatement.case((error: unknown) => true)
+switchStatement.case((errorArg: unknown) => true)
 // @ts-expect-error
-switchStatement.case((error: string) => true)
+switchStatement.case((errorArg: string) => true)
 // @ts-expect-error
-switchStatement.case((error: unknown, extra: unknown) => true)
+switchStatement.case((errorArg: unknown, extra: unknown) => true)
 // @ts-expect-error
-switchStatement.case((error: unknown) => 'true')
+switchStatement.case((errorArg: unknown) => 'true')
 expectAssignable<Condition>(() => true)
-expectAssignable<Condition>((error: unknown) => true)
-expectNotAssignable<Condition>((error: string) => true)
-expectNotAssignable<Condition>((error: unknown, extra: unknown) => true)
-expectNotAssignable<Condition>((error: unknown) => 'true')
+expectAssignable<Condition>((errorArg: unknown) => true)
+expectNotAssignable<Condition>((errorArg: string) => true)
+expectNotAssignable<Condition>((errorArg: unknown, extra: unknown) => true)
+expectNotAssignable<Condition>((errorArg: unknown) => 'true')

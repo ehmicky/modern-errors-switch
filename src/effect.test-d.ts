@@ -3,8 +3,6 @@ import { expectAssignable, expectNotAssignable } from 'tsd'
 
 import modernErrorsSwitch, { Effect } from 'modern-errors-switch'
 
-import './condition.test-d.js'
-
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsSwitch],
 })
@@ -34,21 +32,21 @@ expectAssignable<Effect>(BaseError)
 expectAssignable<Effect>(BaseError.subclass('BaseError'))
 
 switchStatement.default(() => true)
-switchStatement.default((error: unknown) => true)
+switchStatement.default((errorArg: unknown) => true)
 // @ts-expect-error
-switchStatement.default((error: string) => true)
+switchStatement.default((errorArg: string) => true)
 // @ts-expect-error
-switchStatement.default((error: unknown, extra: unknown) => true)
+switchStatement.default((errorArg: unknown, extra: unknown) => true)
 switchStatement.case('Error', () => true)
-switchStatement.case('Error', (error: unknown) => true)
+switchStatement.case('Error', (errorArg: unknown) => true)
 // @ts-expect-error
-switchStatement.case('Error', (error: string) => true)
+switchStatement.case('Error', (errorArg: string) => true)
 // @ts-expect-error
-switchStatement.case('Error', (error: unknown, extra: unknown) => true)
+switchStatement.case('Error', (errorArg: unknown, extra: unknown) => true)
 expectAssignable<Effect>(() => true)
-expectAssignable<Effect>((error: unknown) => true)
-expectNotAssignable<Effect>((error: string) => true)
-expectNotAssignable<Effect>((error: unknown, extra: unknown) => true)
+expectAssignable<Effect>((errorArg: unknown) => true)
+expectNotAssignable<Effect>((errorArg: string) => true)
+expectNotAssignable<Effect>((errorArg: unknown, extra: unknown) => true)
 
 switchStatement.default('message', BaseError, {}, () => true)
 switchStatement.case('Error', 'message', BaseError, {}, () => true)

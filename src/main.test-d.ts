@@ -1,4 +1,4 @@
-import ModernError, { ErrorInstance } from 'modern-errors'
+import ModernError, { type ErrorInstance } from 'modern-errors'
 import { expectType } from 'tsd'
 
 import modernErrorsSwitch, { Switch } from 'modern-errors-switch'
