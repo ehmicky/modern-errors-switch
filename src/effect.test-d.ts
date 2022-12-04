@@ -1,6 +1,6 @@
+import ModernError from 'modern-errors'
 import { expectAssignable, expectNotAssignable } from 'tsd'
 
-import ModernError from 'modern-errors'
 import modernErrorsSwitch, { Effect } from 'modern-errors-switch'
 
 import './condition.test-d.js'

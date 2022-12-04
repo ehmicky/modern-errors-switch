@@ -25,6 +25,7 @@ according to its class.
 
 ```js
 import ModernError from 'modern-errors'
+
 import modernErrorsSwitch from 'modern-errors-switch'
 
 export const BaseError = ModernError.subclass('BaseError', {
