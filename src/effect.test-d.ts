@@ -1,4 +1,4 @@
-import { expectAssignable, expectNotAssignable, expectError } from 'tsd'
+import { expectAssignable, expectNotAssignable } from 'tsd'
 
 import ModernError from 'modern-errors'
 import modernErrorsSwitch, { Effect } from 'modern-errors-switch'
@@ -35,14 +35,16 @@ expectAssignable<Effect>(BaseError.subclass('BaseError'))
 
 switchStatement.default(() => true)
 switchStatement.default((error: unknown) => true)
-expectError(switchStatement.default((error: string) => true))
-expectError(switchStatement.default((error: unknown, extra: unknown) => true))
+// @ts-expect-error
+switchStatement.default((error: string) => true)
+// @ts-expect-error
+switchStatement.default((error: unknown, extra: unknown) => true)
 switchStatement.case('Error', () => true)
 switchStatement.case('Error', (error: unknown) => true)
-expectError(switchStatement.case('Error', (error: string) => true))
-expectError(
-  switchStatement.case('Error', (error: unknown, extra: unknown) => true),
-)
+// @ts-expect-error
+switchStatement.case('Error', (error: string) => true)
+// @ts-expect-error
+switchStatement.case('Error', (error: unknown, extra: unknown) => true)
 expectAssignable<Effect>(() => true)
 expectAssignable<Effect>((error: unknown) => true)
 expectNotAssignable<Effect>((error: string) => true)

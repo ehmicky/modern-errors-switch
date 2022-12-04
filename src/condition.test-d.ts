@@ -1,4 +1,4 @@
-import { expectAssignable, expectNotAssignable, expectError } from 'tsd'
+import { expectAssignable, expectNotAssignable } from 'tsd'
 
 import ModernError from 'modern-errors'
 import modernErrorsSwitch, { Condition } from 'modern-errors-switch'
@@ -16,8 +16,10 @@ expectAssignable<Condition>('Error')
 switchStatement.case(Error)
 switchStatement.case(TypeError)
 switchStatement.case(BaseError)
-expectError(switchStatement.case(Function))
-expectError(switchStatement.case(Array))
+// @ts-expect-error
+switchStatement.case(Function)
+// @ts-expect-error
+switchStatement.case(Array)
 expectAssignable<Condition>(Error)
 expectAssignable<Condition>(TypeError)
 expectAssignable<Condition>(BaseError)
@@ -26,9 +28,12 @@ expectNotAssignable<Condition>(Array)
 
 switchStatement.case(() => true)
 switchStatement.case((error: unknown) => true)
-expectError(switchStatement.case((error: string) => true))
-expectError(switchStatement.case((error: unknown, extra: unknown) => true))
-expectError(switchStatement.case((error: unknown) => 'true'))
+// @ts-expect-error
+switchStatement.case((error: string) => true)
+// @ts-expect-error
+switchStatement.case((error: unknown, extra: unknown) => true)
+// @ts-expect-error
+switchStatement.case((error: unknown) => 'true')
 expectAssignable<Condition>(() => true)
 expectAssignable<Condition>((error: unknown) => true)
 expectNotAssignable<Condition>((error: string) => true)

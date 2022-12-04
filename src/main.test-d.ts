@@ -1,4 +1,4 @@
-import { expectType, expectError } from 'tsd'
+import { expectType } from 'tsd'
 
 import ModernError, { ErrorInstance } from 'modern-errors'
 import modernErrorsSwitch, { Switch } from 'modern-errors-switch'
@@ -11,7 +11,8 @@ const error = new BaseError('')
 const switchStatement = BaseError.switch(error)
 BaseError.switch('')
 expectType<Switch>(switchStatement)
-expectError(BaseError.switch())
+// @ts-expect-error
+BaseError.switch()
 
 expectType<Switch>(switchStatement.case('Error'))
 
