@@ -1,7 +1,1 @@
 extends: '@ehmicky/eslint-config/.eslintrc.yml'
-overrides:
-  - files: ['src/**/*.test-d.ts']
-    rules:
-      # Allow testing callbacks
-      promise/prefer-await-to-callbacks: 0
-      n/handle-callback-err: 0
