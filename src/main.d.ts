@@ -12,6 +12,7 @@ import type { Info, ErrorInstance } from 'modern-errors'
  */
 export type Condition =
   | string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | (new (...args: any[]) => Error)
   | ((error: unknown) => boolean)
 
@@ -34,6 +35,7 @@ export type Condition =
 export type Effect =
   | string
   | { [_: string]: unknown }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | (new (...args: any[]) => Error)
   | ((error: unknown) => unknown)
 
@@ -45,12 +47,12 @@ export interface Switch {
    * If `error` matches the `condition`, apply the `effects`.
    * 0, 1 or multiple effects can be applied.
    */
-  case(condition: Condition, ...effects: Effect[]): Switch
+  case: (condition: Condition, ...effects: Effect[]) => Switch
 
   /**
    * If none of the `.case()` statements matched, apply those default `effects`.
    */
-  default(...effect: Effect[]): ErrorInstance
+  default: (...effect: Effect[]) => ErrorInstance
 }
 
 /**
