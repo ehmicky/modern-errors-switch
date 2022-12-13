@@ -2,7 +2,7 @@ import isPlainObj from 'is-plain-obj'
 
 // Apply wrapping effect to an error: class, message, options or mapping
 // function
-export const applyEffects = function (value, effects, ErrorClass) {
+export const applyEffects = (value, effects, ErrorClass) => {
   const defaultEffects = {
     ErrorClass,
     message: '',
@@ -23,16 +23,14 @@ export const applyEffects = function (value, effects, ErrorClass) {
   return new ErrorClassA(message, { ...options, cause })
 }
 
-const identity = function (value) {
-  return value
-}
+const identity = (value) => value
 
-const parseEffect = function (effect, ErrorClass) {
+const parseEffect = (effect, ErrorClass) => {
   const type = getEffectType(effect, ErrorClass)
   return { [type]: effect }
 }
 
-const getEffectType = function (effect, ErrorClass) {
+const getEffectType = (effect, ErrorClass) => {
   if (typeof effect === 'string') {
     return 'message'
   }
@@ -50,7 +48,7 @@ const getEffectType = function (effect, ErrorClass) {
   )
 }
 
-const getFuncEffectType = function (effect, ErrorClass) {
+const getFuncEffectType = (effect, ErrorClass) => {
   if (!isProto.call(Error, effect)) {
     return 'mapper'
   }

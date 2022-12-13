@@ -1,7 +1,7 @@
 import isErrorInstance from 'is-error-instance'
 
 // Check if a value matches a condition: error name, class or filtering function
-export const matchesCondition = function (value, condition) {
+export const matchesCondition = (value, condition) => {
   if (typeof condition === 'string') {
     return matchesErrorName(value, condition)
   }
@@ -19,8 +19,7 @@ export const matchesCondition = function (value, condition) {
   return Boolean(condition(value))
 }
 
-const matchesErrorName = function (value, name) {
-  return isErrorInstance(value) && value.name === name
-}
+const matchesErrorName = (value, name) =>
+  isErrorInstance(value) && value.name === name
 
 const { isPrototypeOf: isProto } = Object.prototype

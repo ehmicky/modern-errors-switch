@@ -12,10 +12,8 @@ export const message = 'test'
 export const suffix = 'suffix'
 export const suffixTwo = 'other'
 
-export const returnTrue = function () {
-  return true
-}
+export const returnTrue = () => true
 
-export const unsafeFunc = function () {
+export const unsafeFunc = () => {
   throw new Error('Unsafe')
 }

@@ -62,17 +62,13 @@ test('Cannot wrap the cause', (t) => {
   t.is(BaseError.switch(baseError).default({ cause: '' }), baseError)
 })
 
-const mapError = function () {
-  return 'mapper'
-}
+const mapError = () => 'mapper'
 
 test('Can use mappers', (t) => {
   t.true(BaseError.switch('').default(mapError).message.includes('mapper'))
 })
 
-const double = function (value) {
-  return value * 2
-}
+const double = (value) => value * 2
 
 test('Un-normalized error is passed to mapper', (t) => {
   t.true(BaseError.switch(2).default(double).message.endsWith('4'))
