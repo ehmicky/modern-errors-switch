@@ -1,6 +1,7 @@
 import ModernError from 'modern-errors'
-import modernErrorsSwitch, { type Condition } from 'modern-errors-switch'
 import { expectAssignable, expectNotAssignable } from 'tsd'
+
+import modernErrorsSwitch, { type Condition } from 'modern-errors-switch'
 
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsSwitch],
