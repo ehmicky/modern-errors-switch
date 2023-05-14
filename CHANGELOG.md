@@ -1,3 +1,9 @@
+# 3.0.0
+
+## Breaking changes
+
+- Minimal supported `modern-errors` version is now `6.0.0`
+
 # 2.0.0
 
 ## Breaking changes
