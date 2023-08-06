@@ -42,7 +42,10 @@
   ],
   "license": "MIT",
   "homepage": "https://www.github.com/ehmicky/modern-errors-switch",
-  "repository": "ehmicky/modern-errors-switch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehmicky/modern-errors-switch.git"
+  },
   "bugs": {
     "url": "https://github.com/ehmicky/modern-errors-switch/issues"
   },
