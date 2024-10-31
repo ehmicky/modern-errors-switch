@@ -2,10 +2,10 @@ import test from 'ava'
 
 import {
   BaseError,
-  OneError,
-  TwoError,
   message,
+  OneError,
   suffix,
+  TwoError,
   unsafeFunc,
 } from './helpers/main.test.js'
 

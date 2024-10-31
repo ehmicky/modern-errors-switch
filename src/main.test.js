@@ -2,12 +2,12 @@ import test from 'ava'
 
 import {
   BaseError,
-  OneError,
-  TwoError,
   message,
+  OneError,
+  returnTrue,
   suffix,
   suffixTwo,
-  returnTrue,
+  TwoError,
 } from './helpers/main.test.js'
 
 test('Can use case() without any effects', (t) => {

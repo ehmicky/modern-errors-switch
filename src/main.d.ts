@@ -1,4 +1,4 @@
-import type { Info, ErrorInstance } from 'modern-errors'
+import type { ErrorInstance, Info } from 'modern-errors'
 
 /**
  * The `condition` can be:

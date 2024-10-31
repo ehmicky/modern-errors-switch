@@ -3,8 +3,8 @@ import test from 'ava'
 import {
   BaseError,
   OneError,
-  TwoError,
   suffix,
+  TwoError,
   unsafeFunc,
 } from './helpers/main.test.js'
 
