@@ -1,6 +1,7 @@
+import switchFunctional from 'switch-functional'
+
 import { normalizeConditions } from './condition.js'
 import { normalizeEffects } from './effect.js'
-import { switchFunctional } from './switch.js'
 
 // `ErrorClass.switch(value)`
 const switchMethod = ({ ErrorClass }, value) =>

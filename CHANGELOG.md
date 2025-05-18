@@ -3,6 +3,8 @@
 - Conditions can now be [booleans](README.md#boolean-condition),
   [error properties objects](README.md#check-error-properties) or an
   [array of conditions](README.md#alternative-conditions)
+- Split core logic to a separate new module:
+  [`switch-functional`](https://github.com/ehmicky/switch-functional)
 
 # 4.0.1
 
