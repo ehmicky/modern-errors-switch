@@ -1,6 +1,6 @@
 {
   "name": "modern-errors-switch",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "type": "module",
   "exports": {
     "types": "./build/src/main.d.ts",
