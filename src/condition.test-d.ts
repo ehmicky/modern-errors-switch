@@ -52,6 +52,19 @@ expectNotAssignable<Condition>((errorArg: unknown) => 'true')
 switchStatement.case(true)
 expectAssignable<Condition>(true)
 
+switchStatement.case([])
+switchStatement.case([true])
+switchStatement.case([true, 'Error'])
+// @ts-expect-error
+switchStatement.case([0])
+// @ts-expect-error
+switchStatement.case([0, 'Error'])
+expectNotAssignable<Condition>([])
+expectNotAssignable<Condition>([true])
+expectNotAssignable<Condition>([true, 'Error'])
+expectNotAssignable<Condition>([0])
+expectNotAssignable<Condition>([0, 'Error'])
+
 // @ts-expect-error
 switchStatement.case(0)
 expectNotAssignable<Condition>(0)

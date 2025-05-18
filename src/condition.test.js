@@ -80,6 +80,68 @@ test('Can match by properties', (t) => {
   )
 })
 
+test('Can match by multiple booleans', (t) => {
+  const switchStatement = BaseError.switch(0)
+  t.false(
+    switchStatement
+      .case([false, false], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+  t.true(
+    switchStatement
+      .case([false, true], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+  t.true(
+    switchStatement
+      .case([true, false], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+  t.true(
+    switchStatement
+      .case([true, true], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+})
+
+test('Can match by multiple error names', (t) => {
+  const oneError = new OneError('test')
+  const switchStatement = BaseError.switch(oneError)
+  t.false(
+    switchStatement
+      .case(['.', TwoError.name], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+  t.true(
+    switchStatement
+      .case(['.', OneError.name], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+})
+
+test('Can match by mixed conditions', (t) => {
+  const oneError = new OneError('test')
+  const switchStatement = BaseError.switch(oneError)
+  t.false(
+    switchStatement
+      .case([false, TwoError.name], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+  t.true(
+    switchStatement
+      .case([false, OneError.name], suffix)
+      .default()
+      .message.endsWith(suffix),
+  )
+})
+
 test('Exceptions in filters are propagated', (t) => {
   t.throws(BaseError.switch('').case.bind(undefined, unsafeFunc, suffix))
 })

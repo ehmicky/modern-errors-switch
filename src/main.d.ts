@@ -7,6 +7,8 @@ import type { ErrorInstance, Info } from 'modern-errors'
  *  - An error
  *    [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name)
  *    string
+ *  - An object containing of subset of
+ *    [error properties](https://github.com/ehmicky/modern-errors#%EF%B8%8F-error-properties)
  *  - A filtering function taking the `error` as argument and returning a
  *    boolean
  *  - A boolean
@@ -47,10 +49,10 @@ export type Effect =
  */
 export interface Switch {
   /**
-   * If `error` matches the `condition`, apply the `effects`.
+   * If `error` matches the `conditions`, apply the `effects`.
    * 0, 1 or multiple effects can be applied.
    */
-  case: (condition: Condition, ...effects: Effect[]) => Switch
+  case: (conditions: Condition | Condition[], ...effects: Effect[]) => Switch
 
   /**
    * If none of the `.case()` statements matched, apply those default `effects`.

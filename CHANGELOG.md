@@ -1,7 +1,8 @@
 # 4.1.0
 
 - Conditions can now be [booleans](README.md#boolean-condition),
-  [error properties objects](README.md#check-error-properties)
+  [error properties objects](README.md#check-error-properties) or an
+  [array of conditions](README.md#alternative-conditions)
 
 # 4.0.1
 

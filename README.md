@@ -86,13 +86,13 @@ any type. However, the final value returned by
 [`.default()`](#switchdefaulteffects) is always an instance of `BaseError` or a
 subclass of it.
 
-## Switch.case(condition, ...effects)
+## Switch.case(conditions, ...effects)
 
-`condition`: [`Condition`](#condition)\
+`conditions`: [`Condition | Condition[]`](#condition)\
 `effect`: [`Effect`](#effect)\
 _Return value_: [`Switch`](#switchcasecondition-effects)
 
-If `error` matches the `condition`, apply the `effects`. 0, 1 or multiple
+If `error` matches the `conditions`, apply the `effects`. 0, 1 or multiple
 effects can be applied.
 
 ## Switch.default(...effects)
@@ -105,7 +105,7 @@ apply those default `effects`.
 
 ## Condition
 
-The `condition` can be:
+The `conditions` can be:
 
 - An error class, matched with
   [`instanceof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
@@ -116,6 +116,7 @@ The `condition` can be:
   [error properties](https://github.com/ehmicky/modern-errors#%EF%B8%8F-error-properties)
 - A filtering function taking the `error` as argument and returning a boolean
 - A boolean
+- An array of the above types, checking if _any_ condition in the array matches
 
 ## Effect
 
@@ -221,6 +222,16 @@ BaseError.switch(error)
 BaseError.switch(error)
   // If `error.type` is `database`, append the following message
   .case((error) => error.type === 'database', 'Bug at the database layer.')
+  .default()
+```
+
+## Alternative conditions
+
+```js
+BaseError.switch(error)
+  // If `error` is either a `DatabaseError` or has `isDatabase: true`,
+  // append the following message
+  .case([DatabaseError, { isDatabase: true }], 'Bug at the database layer.')
   .default()
 ```
 

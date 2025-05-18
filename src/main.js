@@ -1,4 +1,4 @@
-import { normalizeCondition } from './condition.js'
+import { normalizeConditions } from './condition.js'
 import { normalizeEffects } from './effect.js'
 import { switchFunctional } from './switch.js'
 
@@ -11,7 +11,7 @@ const patchSwitch = (originalSwitch, ErrorClass) => ({
   case: (condition, ...effects) =>
     patchSwitch(
       originalSwitch.case(
-        normalizeCondition(condition),
+        normalizeConditions(condition),
         normalizeEffects(effects, ErrorClass),
       ),
       ErrorClass,
