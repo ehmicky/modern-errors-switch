@@ -263,6 +263,8 @@ try {
 
 # Related projects
 
+- [`switch-functional`](https://github.com/ehmicky/switch-functional):
+  Functional switch statement
 - [`log-process-errors`](https://github.com/ehmicky/log-process-errors): Show
   some ❤ to Node.js process errors
 - [`modern-errors`](https://github.com/ehmicky/modern-errors): Handle errors in
