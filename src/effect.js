@@ -2,55 +2,26 @@ import isPlainObj from 'is-plain-obj'
 
 // Apply wrapping effect to an error: class, message, options or mapping
 // function
-export const applyEffects = (value, effects, ErrorClass) => {
-  const defaultEffects = {
-    ErrorClass,
-    message: '',
-    options: {},
-    mapper: identity,
-  }
-  const {
-    ErrorClass: ErrorClassA,
-    message,
-    options,
-    mapper,
-  } = Object.assign(
-    {},
-    defaultEffects,
-    ...effects.map((effect) => parseEffect(effect, ErrorClass)),
-  )
-  const cause = mapper(value)
-  return new ErrorClassA(message, { ...options, cause })
+export const normalizeEffects = (effects, ErrorClass) => {
+  validateEffects(effects, ErrorClass)
+  return applyEffects.bind(undefined, effects, ErrorClass)
 }
 
-const identity = (value) => value
-
-const parseEffect = (effect, ErrorClass) => {
-  const type = getEffectType(effect, ErrorClass)
-  return { [type]: effect }
+const validateEffects = (effects, ErrorClass) => {
+  effects.forEach((effect) => {
+    validateEffect(effect, ErrorClass)
+  })
 }
 
-const getEffectType = (effect, ErrorClass) => {
-  if (typeof effect === 'string') {
-    return 'message'
+const validateEffect = (effect, ErrorClass) => {
+  if (isMessage(effect) || isOptions(effect) || isMapper(effect)) {
+    return
   }
 
-  if (isPlainObj(effect)) {
-    return 'options'
-  }
-
-  if (typeof effect === 'function') {
-    return getFuncEffectType(effect, ErrorClass)
-  }
-
-  throw new TypeError(
-    `The effect must be an error class, an error message string, an options object or a mapping function, not: ${effect}`,
-  )
-}
-
-const getFuncEffectType = (effect, ErrorClass) => {
-  if (!isProto.call(Error, effect)) {
-    return 'mapper'
+  if (!isErrorClass(effect)) {
+    throw new TypeError(
+      `The effect must be an error class, an error message string, an options object or a mapping function, not: ${effect}`,
+    )
   }
 
   if (ErrorClass !== effect && !isProto.call(ErrorClass, effect)) {
@@ -58,8 +29,27 @@ const getFuncEffectType = (effect, ErrorClass) => {
       `The error class must be "${ErrorClass.name}" or one of its subclass, not "${effect.name}".`,
     )
   }
-
-  return 'ErrorClass'
 }
+
+const applyEffects = (effects, ErrorClass, value) => {
+  const message = effects.findLast(isMessage) ?? ''
+  const options = effects.findLast(isOptions) ?? {}
+  const mapper = effects.findLast(isMapper) ?? identity
+  const NewErrorClass = effects.findLast(isErrorClass) ?? ErrorClass
+
+  const cause = mapper(value)
+  return new NewErrorClass(message, { ...options, cause })
+}
+
+const isMessage = (effect) => typeof effect === 'string'
+
+const isOptions = isPlainObj
+
+const isMapper = (effect) =>
+  typeof effect === 'function' && !isErrorClass(effect)
+
+const isErrorClass = (effect) => isProto.call(Error, effect)
+
+const identity = (value) => value
 
 const { isPrototypeOf: isProto } = Object.prototype

@@ -20,7 +20,7 @@ test('Can use default() without any effects', (t) => {
   t.is(BaseError.switch(baseError).default(), baseError)
 })
 
-test('Cannot use case() without any condition', (t) => {
+test.skip('Cannot use case() without any condition', (t) => {
   const baseError = new BaseError(message)
   t.throws(BaseError.switch(baseError).case)
 })

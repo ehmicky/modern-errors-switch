@@ -1,26 +1,22 @@
-import { matchesCondition } from './condition.js'
-import { applyEffects } from './effect.js'
+import { normalizeCondition } from './condition.js'
+import { normalizeEffects } from './effect.js'
+import { switchFunctional } from './switch.js'
 
 // `ErrorClass.switch(value)`
 const switchMethod = ({ ErrorClass }, value) =>
-  getSwitch({ ErrorClass, value, resolved: undefined })
+  patchSwitch(switchFunctional(value), ErrorClass)
 
-// `ErrorClass.switch(value)[.case(...)].case(condition, ...effects)`
-const addCase = ({ ErrorClass, value, resolved }, condition, ...effects) => {
-  const resolvedA =
-    resolved === undefined && matchesCondition(value, condition)
-      ? applyEffects(value, effects, ErrorClass)
-      : resolved
-  return getSwitch({ ErrorClass, value, resolved: resolvedA })
-}
-
-// `ErrorClass.switch(value)[.case()...].default(...effects)`
-const useDefault = ({ ErrorClass, value, resolved }, ...effects) =>
-  resolved === undefined ? applyEffects(value, effects, ErrorClass) : resolved
-
-const getSwitch = (context) => ({
-  case: addCase.bind(undefined, context),
-  default: useDefault.bind(undefined, context),
+const patchSwitch = (originalSwitch, ErrorClass) => ({
+  case: (condition, ...effects) =>
+    patchSwitch(
+      originalSwitch.case(
+        normalizeCondition(condition),
+        normalizeEffects(effects, ErrorClass),
+      ),
+      ErrorClass,
+    ),
+  default: (...effects) =>
+    originalSwitch.default(normalizeEffects(effects, ErrorClass)),
 })
 
 export default {
