@@ -15,7 +15,7 @@ export const normalizeCondition = (condition) => {
   if (
     typeof condition !== 'function' &&
     !isPlainObj(condition) &&
-    typeof condition === 'boolean'
+    typeof condition !== 'boolean'
   ) {
     throw new TypeError(
       `The condition must be an error class, an error name string, a filtering function, a boolean or a properties object, not: ${condition}`,

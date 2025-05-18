@@ -66,5 +66,5 @@ test('Exceptions in filters are propagated', (t) => {
 })
 
 test('Validate invalid conditions', (t) => {
-  t.throws(BaseError.switch('').case.bind(undefined, true, suffix))
+  t.throws(BaseError.switch('').case.bind(undefined, 0, suffix))
 })
