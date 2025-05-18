@@ -1,3 +1,7 @@
+# 4.1.0
+
+- [Conditions](README.md#condition) can now be booleans
+
 # 4.0.1
 
 ## Documentation

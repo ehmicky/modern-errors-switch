@@ -39,3 +39,8 @@ expectAssignable<Condition>((errorArg: unknown) => true)
 expectNotAssignable<Condition>((errorArg: string) => true)
 expectNotAssignable<Condition>((errorArg: unknown, extra: unknown) => true)
 expectNotAssignable<Condition>((errorArg: unknown) => 'true')
+
+switchStatement.case(true)
+expectAssignable<Condition>(true)
+
+expectNotAssignable<Condition>(0)

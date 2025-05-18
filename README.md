@@ -113,6 +113,7 @@ The `condition` can be:
   [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name)
   string
 - A filtering function taking the `error` as argument and returning a boolean
+- A boolean
 
 ## Effect
 
@@ -190,6 +191,17 @@ BaseError.switch(error)
     bugs: 'https://github.com/my-name/my-project/issues',
   })
   .default(UnknownError)
+```
+
+## Boolean condition
+
+```js
+// Performs the condition in global scope
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+
+BaseError.switch(error)
+  .case(IS_PRODUCTION, 'Bug at the database layer.')
+  .default()
 ```
 
 ## Custom condition

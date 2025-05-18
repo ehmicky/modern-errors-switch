@@ -9,9 +9,11 @@ import type { ErrorInstance, Info } from 'modern-errors'
  *    string
  *  - A filtering function taking the `error` as argument and returning a
  *    boolean
+ *  - A boolean
  */
 export type Condition =
   | string
+  | boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | (new (...args: any[]) => Error)
   | ((error: unknown) => boolean)

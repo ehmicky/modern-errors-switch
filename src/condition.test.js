@@ -61,6 +61,14 @@ test('Can match by filter', (t) => {
   )
 })
 
+test('Can match by boolean', (t) => {
+  const switchStatement = BaseError.switch(0)
+  t.false(
+    switchStatement.case(false, suffix).default().message.endsWith(suffix),
+  )
+  t.true(switchStatement.case(true, suffix).default().message.endsWith(suffix))
+})
+
 test('Exceptions in filters are propagated', (t) => {
   t.throws(BaseError.switch('').case.bind(undefined, unsafeFunc, suffix))
 })
