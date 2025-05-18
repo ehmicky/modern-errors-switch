@@ -2,7 +2,7 @@ import isPlainObj from 'is-plain-obj'
 
 // Add support for error-specific effects to the ones already supported by
 // `switch-functional`
-export const mapEffects = (ErrorClass, effects) => {
+export const mapEffects = (ErrorClass, ...effects) => {
   validateEffects(effects, ErrorClass)
   return applyEffects.bind(undefined, effects, ErrorClass)
 }

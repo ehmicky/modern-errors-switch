@@ -3,7 +3,7 @@ import isPlainObj from 'is-plain-obj'
 
 // Add support for `error.message` and `ErrorClass` condition to
 // the conditions already supported by `switch-functional`
-export const normalizeCondition = (condition) => {
+export const mapCondition = (condition) => {
   if (typeof condition === 'string') {
     return matchesErrorName.bind(undefined, condition)
   }
