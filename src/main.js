@@ -1,24 +1,28 @@
 import switchFunctional from 'switch-functional'
 
 import { normalizeConditions } from './condition.js'
-import { normalizeEffects } from './effect.js'
+import { mapEffects } from './effect.js'
 
 // `ErrorClass.switch(value)`
-const switchMethod = ({ ErrorClass }, value) =>
-  patchSwitch(switchFunctional(value), ErrorClass)
-
 // Wrap `switch-functional` to add Error-specific conditions and effects
-const patchSwitch = (originalSwitch, ErrorClass) => ({
-  case: (condition, ...effects) =>
-    patchSwitch(
+const switchMethod = ({ ErrorClass }, value) =>
+  customize(normalizeConditions, mapEffects.bind(undefined, ErrorClass))(value)
+
+const customize = (mapConditions, mapReturnValues) => (value) =>
+  customizeSwitch(switchFunctional(value), mapConditions, mapReturnValues)
+
+const customizeSwitch = (originalSwitch, mapConditions, mapReturnValues) => ({
+  case: (conditions, ...returnValues) =>
+    customizeSwitch(
       originalSwitch.case(
-        normalizeConditions(condition),
-        normalizeEffects(effects, ErrorClass),
+        mapConditions(conditions),
+        mapReturnValues(returnValues),
       ),
-      ErrorClass,
+      mapConditions,
+      mapReturnValues,
     ),
-  default: (...effects) =>
-    originalSwitch.default(normalizeEffects(effects, ErrorClass)),
+  default: (...returnValues) =>
+    originalSwitch.default(mapReturnValues(returnValues)),
 })
 
 export default {
