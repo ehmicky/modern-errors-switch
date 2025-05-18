@@ -69,6 +69,17 @@ test('Can match by boolean', (t) => {
   t.true(switchStatement.case(true, suffix).default().message.endsWith(suffix))
 })
 
+test('Can match by properties', (t) => {
+  const typeError = new OneError('test', { props: { one: 1 } })
+  const switchStatement = BaseError.switch(typeError)
+  t.false(
+    switchStatement.case({ one: 2 }, suffix).default().message.endsWith(suffix),
+  )
+  t.true(
+    switchStatement.case({ one: 1 }, suffix).default().message.endsWith(suffix),
+  )
+})
+
 test('Exceptions in filters are propagated', (t) => {
   t.throws(BaseError.switch('').case.bind(undefined, unsafeFunc, suffix))
 })

@@ -1,6 +1,7 @@
 # 4.1.0
 
-- [Conditions](README.md#condition) can now be booleans
+- Conditions can now be [booleans](README.md#boolean-condition),
+  [error properties objects](README.md#check-error-properties)
 
 # 4.0.1
 

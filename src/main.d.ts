@@ -14,6 +14,7 @@ import type { ErrorInstance, Info } from 'modern-errors'
 export type Condition =
   | string
   | boolean
+  | { [key: PropertyKey]: unknown }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | (new (...args: any[]) => Error)
   | ((error: unknown) => boolean)

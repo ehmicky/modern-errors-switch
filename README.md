@@ -112,6 +112,8 @@ The `condition` can be:
 - An error
   [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/name)
   string
+- An object containing of subset of
+  [error properties](https://github.com/ehmicky/modern-errors#%EF%B8%8F-error-properties)
 - A filtering function taking the `error` as argument and returning a boolean
 - A boolean
 
@@ -191,6 +193,15 @@ BaseError.switch(error)
     bugs: 'https://github.com/my-name/my-project/issues',
   })
   .default(UnknownError)
+```
+
+## Check error properties
+
+```js
+BaseError.switch(error)
+  // If `error.isDatabase` is `true`, append the following message
+  .case({ isDatabase: true }, 'Bug at the database layer.')
+  .default()
 ```
 
 ## Boolean condition

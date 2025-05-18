@@ -13,6 +13,15 @@ const switchStatement = BaseError.switch(error)
 switchStatement.case('Error')
 expectAssignable<Condition>('Error')
 
+switchStatement.case({})
+switchStatement.case({ prop: true })
+switchStatement.case({ prop: [true] })
+switchStatement.case({ prop: { nested: true } })
+expectAssignable<Condition>({})
+expectAssignable<Condition>({ prop: true })
+expectAssignable<Condition>({ prop: [true] })
+expectAssignable<Condition>({ prop: { nested: true } })
+
 switchStatement.case(Error)
 switchStatement.case(TypeError)
 switchStatement.case(BaseError)
@@ -43,4 +52,15 @@ expectNotAssignable<Condition>((errorArg: unknown) => 'true')
 switchStatement.case(true)
 expectAssignable<Condition>(true)
 
+// @ts-expect-error
+switchStatement.case(0)
 expectNotAssignable<Condition>(0)
+// @ts-expect-error
+switchStatement.case(0n)
+expectNotAssignable<Condition>(0n)
+// @ts-expect-error
+switchStatement.case(null)
+expectNotAssignable<Condition>(null)
+// @ts-expect-error
+switchStatement.case(undefined)
+expectNotAssignable<Condition>(undefined)
