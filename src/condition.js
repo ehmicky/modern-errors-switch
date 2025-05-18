@@ -1,8 +1,8 @@
 import isErrorInstance from 'is-error-instance'
 import isPlainObj from 'is-plain-obj'
 
-// TODO: allow for array
-// TODO: document support for array, boolean, props object
+// Add support for `error.message` and `ErrorClass` condition to
+// the conditions already supported by `switch-functional`
 export const normalizeCondition = (condition) => {
   if (typeof condition === 'string') {
     return matchesErrorName.bind(undefined, condition)
@@ -13,16 +13,16 @@ export const normalizeCondition = (condition) => {
   }
 
   if (
-    typeof condition !== 'function' &&
-    !isPlainObj(condition) &&
-    typeof condition !== 'boolean'
+    typeof condition === 'function' ||
+    typeof condition === 'boolean' ||
+    isPlainObj(condition)
   ) {
-    throw new TypeError(
-      `The condition must be an error class, an error name string, a filtering function, a boolean or a properties object, not: ${condition}`,
-    )
+    return condition
   }
 
-  return condition
+  throw new TypeError(
+    `The condition must be an error class, an error name string, a filtering function, a boolean or a properties object, not: ${condition}`,
+  )
 }
 
 const matchesErrorName = (condition, value) =>

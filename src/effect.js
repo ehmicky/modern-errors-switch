@@ -1,7 +1,7 @@
 import isPlainObj from 'is-plain-obj'
 
-// Apply wrapping effect to an error: class, message, options or mapping
-// function
+// Add support for error-specific effects to the ones already supported by
+// `switch-functional`
 export const normalizeEffects = (effects, ErrorClass) => {
   validateEffects(effects, ErrorClass)
   return applyEffects.bind(undefined, effects, ErrorClass)

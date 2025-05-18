@@ -6,6 +6,7 @@ import { switchFunctional } from './switch.js'
 const switchMethod = ({ ErrorClass }, value) =>
   patchSwitch(switchFunctional(value), ErrorClass)
 
+// Wrap `switch-functional` to add Error-specific conditions and effects
 const patchSwitch = (originalSwitch, ErrorClass) => ({
   case: (condition, ...effects) =>
     patchSwitch(
